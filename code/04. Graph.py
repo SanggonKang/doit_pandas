@@ -125,4 +125,87 @@ axes04.set_ylabel('Tip')
 
 plt.show()
 
-# seaborn 라이브러리로 히스토그램을 그린다.
+# seaborn 라이브러리로 히스토그램을 그린다. distplot
+# 1. subplots 메서드로 기본 틀을 만든다.
+ax = plt.subplots()
+# 2-1. distplot 으로 히스토그램을 그린다.
+ax = sns.distplot(tips.total_bill)
+# 3. 제목을 붙인다.
+ax.set_title('Total Bill Histogram with Density Plot')
+# 4. 그래프 출력
+plt.show()
+# 2-2. 밀집도 그래프를 제외한다. kde = False
+ax = sns.distplot(tips.total_bill, kde=False)
+# 3. 제목을 붙인다.
+ax.set_title('Total Bill Histogram')
+# 4. 그래프 출력
+plt.show()
+# 2-3. 밀집도 그래프만. hist = False
+ax = sns.distplot(tips.total_bill, hist=False)
+# 3. 제목을 붙인다.
+ax.set_title('Total Bill Density')
+# 4. x 축과 y 축 이름을 붙인다.
+ax.set_xlabel('Total Bill')
+ax.set_ylabel('Unit Probability')
+# 5. 그래프 출력
+plt.show()
+# 2-4. 양탄자 그래프 추가. rug=True
+ax = sns.distplot(tips.total_bill, rug=True)
+# 3. 제목을 붙인다.
+ax.set_title('Total Bill Histogram with Density and Rug Plot')
+# 4. x 축 이름을 붙인다.
+ax.set_xlabel('Total Bill')
+# 5. 그래프 출력
+plt.show()
+
+# Count 그래프 - countplot
+axcount = plt.subplots()
+axcount = sns.countplot('day', data=tips)
+axcount.set_title('Count of days')
+axcount.set_xlabel('Day of the week')
+axcount.set_ylabel('Frequency')
+plt.show()
+
+# scatterplot - regplot
+axscatter = plt.subplots()
+axscatter = sns.regplot(x='total_bill', y='tip', data=tips)
+axscatter.set_title('Scatterplot of Total Bill and Tip')
+axscatter.set_xlabel('Total Bill')
+axscatter.set_ylabel('Tip')
+plt.show()
+# 회귀선을 없애려면 fit_reg = False
+
+# 산점도 그래프와 히스토그램을 동시에 - jointplot
+joint = sns.jointplot(x='total_bill', y='tip', data=tips)
+joint.set_axis_labels(xlabel = 'Total Bill', ylabel = 'Tip')
+joint.fig.suptitle('Joint Plot of Total Bill and Tip')
+plt.show()
+# 육각 그래프 - kind = 'hex'
+jointhex = sns.jointplot(x='total_bill', y='tip', data=tips, kind='hex')
+jointhex.set_axis_labels(xlabel = 'Total Bill', ylabel = 'Tip')
+jointhex.fig.suptitle('Joint Plot of Total Bill and Tip')
+plt.show()
+
+# 이차원 밀집도 - kdeplot
+axkde = plt.subplots()
+axkde = sns.kdeplot(data=tips.total_bill, data2=tips.tip, shade=True)
+axkde.set_title('Kernel Density Plot of Total Bill and Tip')
+axkde.set_xlabel('Total Bill')
+axkde.set_ylabel('Tip')
+plt.show()
+
+# 변수의 평균을 나타내는 바 그래프 그리기 - barplot
+axbar = plt.subplots()
+axbar = sns.barplot(x='time', y='total_bill', data=tips)
+plt.show()
+
+# 박스 그래프 - boxplot
+axbox = plt.subplots()
+axbox = sns.boxplot(x='time', y='total_bill', data=tips)
+plt.show()
+
+# 박스 그래프는 분산이 모호하게 표현됨. 박스 그래프에 커널 밀도를 추정한 바이올린 그래프 - violinplot
+axviolin = plt.subplots()
+axviolin = sns.violinplot(x='time', y='total_bill', data=tips)
+plt.show()
+
