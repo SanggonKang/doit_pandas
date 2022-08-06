@@ -209,3 +209,48 @@ axviolin = plt.subplots()
 axviolin = sns.violinplot(x='time', y='total_bill', data=tips)
 plt.show()
 
+# PairGrid
+pair_grid = sns.PairGrid(tips)
+pair_grid = pair_grid.map_upper(sns.regplot)
+pair_grid = pair_grid.map_lower(sns.kdeplot)
+pair_grid = pair_grid.map_diag(sns.displot, rug=True)
+plt.show()
+
+# 바이올린 그래프. 색상추가
+axv = plt.subplots()
+axv = sns.violinplot(x='time', y='total_bill', hue='sex', data=tips)
+plt.show()
+
+axv1 = plt.subplots()
+axv1 = sns.violinplot(x='time', y='total_bill', hue='sex', data=tips, split=True)
+plt.show()
+
+# 산점도에 색상 추가
+scatter = sns.lmplot(x='total_bill', y='tip', data=tips, hue='sex', fit_reg=False)
+plt.show()
+
+# 산점도에 크기 추가 - 오류 발생
+# scatter = sns.lmplot(x='total_bill', y='tip', data=tips, hue='sex', fit_reg=False, scatter_kws={'s':tips['size']*10})
+# plt.show()
+
+# 산점도에 마크 변경
+scatter = sns.lmplot(x='total_bill', y='tip', data=tips, hue='sex', fit_reg=False, markers=['o', 'x'])
+plt.show()
+
+# anscombe
+anscombe_plot = sns.lmplot(x='x', y='y', data=anscombe, fit_reg=False, col='dataset', col_wrap=2)
+plt.show()
+
+# FacetGrid 로 여러 그래프를 그리기
+facet = sns.FacetGrid(tips, col='time')
+facet.map(sns.distplot, 'total_bill', rug=True)
+plt.show()
+
+facet2 = sns.FacetGrid(tips, col='day', hue='sex')
+facet2 = facet2.map(sns.regplot, 'total_bill', 'tip')
+facet2 = facet2.add_legend()
+plt.show()
+
+facet3 = sns.FacetGrid(tips, col='time', row='smoker', hue='sex')
+facet3 = facet3.map(sns.regplot, 'total_bill', 'tip')
+plt.show()
